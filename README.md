@@ -44,4 +44,4 @@ Chúng tôi hoan nghênh mọi đóng góp để cải thiện InfinityMaze! Vui
 Dự án này được phát hành theo [MIT License](LICENSE).
 
 ## Liên hệ
-Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng mở một issue trên GitHub hoặc liên hệ qua [email@example.com].
+Nếu bạn có câu hỏi hoặc cần hỗ trợ, vui lòng mở một issue trên GitHub hoặc liên hệ qua [luonminh0203@gmail.com].
