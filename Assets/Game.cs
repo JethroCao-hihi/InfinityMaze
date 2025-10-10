@@ -1,79 +1,145 @@
-using Cinemachine;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    public float holep;
-    public int w, h, x, y;
-    public bool[,] hwalls, vwalls;
-    public Transform Level, Player, Goal;
-    public GameObject Floor, Wall;
-    public CinemachineVirtualCamera cam;
+    public CinemachineVirtualCamera vcam;
+    public Transform Player;
+    public Transform Goal;
+    public Transform Walls;
+    public GameObject WallTemplate;
+    public GameObject FloorTemplate;
+    public float MovementSmoothing;
+
+    public int Width = 3;
+    public int Height = 3;
+    public bool[,] HWalls, VWalls;
+    public float HoleProbability;
+    public int GoalX, GoalY;
+
+    public int PlayerX, PlayerY;
 
     void Start()
     {
-        foreach (Transform child in Level)
-            Destroy(child.gameObject);
-
-        hwalls = new bool[w + 1, h];
-        vwalls = new bool[w, h + 1];
-        var st = new int[w, h];
-
-        void dfs(int x, int y)
-        {
-            st[x, y] = 1;
-            Instantiate(Floor, new Vector3(x, y), Quaternion.identity, Level);
-
-            var dirs = new[]
-            {
-                (x - 1, y, hwalls, x, y, Vector3.right, 90, KeyCode.A),
-                (x + 1, y, hwalls, x + 1, y, Vector3.right, 90, KeyCode.D),
-                (x, y - 1, vwalls, x, y, Vector3.up, 0, KeyCode.S),
-                (x, y + 1, vwalls, x, y + 1, Vector3.up, 0, KeyCode.W),
-            };
-            foreach (var (nx, ny, wall, wx, wy, sh, ang, k) in dirs.OrderBy(d => Random.value))
-                if (!(0 <= nx && nx < w && 0 <= ny && ny < h) || (st[nx, ny] == 2 && Random.value > holep))
-                {
-                    wall[wx, wy] = true;
-                    Instantiate(Wall, new Vector3(wx, wy) - sh / 2, Quaternion.Euler(0, 0, ang), Level);
-                }
-                else if (st[nx, ny] == 0) dfs(nx, ny);
-            st[x, y] = 2;
-        }
-        dfs(0, 0);
-
-        x = Random.Range(0, w);
-        y = Random.Range(0, h);
-        Player.position = new Vector3(x, y);
-        do Goal.position = new Vector3(Random.Range(0, w), Random.Range(0, h));
-        while (Vector3.Distance(Player.position, Goal.position) < (w + h) / 4);
-        cam.m_Lens.OrthographicSize = Mathf.Pow(w / 3 + h / 2, 0.7f) + 1;
+        StartNext();
     }
 
     void Update()
     {
-        var dirs = new[]
-        {
-            (x - 1, y, hwalls, x, y, Vector3.right, 90, KeyCode.A),
-            (x + 1, y, hwalls, x + 1, y, Vector3.right, 90, KeyCode.D),
-            (x, y - 1, vwalls, x, y, Vector3.up, 0, KeyCode.S),
-            (x, y + 1, vwalls, x, y + 1, Vector3.up, 0, KeyCode.W),
-        };
-        foreach (var (nx, ny, wall, wx, wy, sh, ang, k) in dirs.OrderBy(d => Random.value))
-            if (Input.GetKeyDown(k))
-                if (wall[wx, wy])
-                    Player.position = Vector3.Lerp(Player.position, new Vector3(nx, ny), 0.1f);
-                else (x, y) = (nx, ny);
+        // Di chuyển người chơi
+        if (Input.GetKeyDown(KeyCode.A) && !HWalls[PlayerX, PlayerY])
+            PlayerX--;
+        if (Input.GetKeyDown(KeyCode.D) && !HWalls[PlayerX + 1, PlayerY])
+            PlayerX++;
+        if (Input.GetKeyDown(KeyCode.W) && !VWalls[PlayerX, PlayerY + 1])
+            PlayerY++;
+        if (Input.GetKeyDown(KeyCode.S) && !VWalls[PlayerX, PlayerY])
+            PlayerY--;
 
-        Player.position = Vector3.Lerp(Player.position, new Vector3(x, y), Time.deltaTime * 12);
-        if (Vector3.Distance(Player.position, Goal.position) < 0.12f)
+        // Làm mượt khi di chuyển
+        Vector3 target = new Vector3(PlayerX + 0.5f, PlayerY + 0.5f);
+        Player.transform.position = Vector3.Lerp(Player.transform.position, target, Time.deltaTime * MovementSmoothing);
+
+        // Kiểm tra người chơi đã đến đích chưa
+        if (Vector3.Distance(Player.transform.position, new Vector3(GoalX + 0.5f, GoalY + 0.5f)) < 0.12f)
         {
-            if (Random.Range(0, 5) < 3) w++;
-            else h++;
-            Start();
+            if (Rand(25) < 15)
+                Width++;
+            else
+                Height++;
+
+            StartNext();
         }
+        // Bấm G để reset
+        if (Input.GetKeyDown(KeyCode.G))
+            StartNext();
+    }
+
+    //Hàm sinh số ngẫu nhiên
+    public int Rand(int max)
+    {
+        return UnityEngine.Random.Range(0, max);
+    }
+    public float frand()
+    {
+        return UnityEngine.Random.value;
+    }
+
+    public void StartNext()
+    {
+        //Tạo mê cung mới và xóa mê cung cũ đi
+        foreach (Transform child in Walls)
+            Destroy(child.gameObject);
+        //Sinh mê cung mới
+        (HWalls, VWalls) = GenerateLevel(Width, Height);
+        //Chọn vị trí ngẫu nhiên cho người chơi và đích
+        PlayerX = Rand(Width);
+        PlayerY = Rand(Height);
+
+        int minDiff = Mathf.Max(Width, Height) / 2;
+        while (true)
+        {
+            GoalX = Rand(Width);
+            GoalY = Rand(Height);
+            if (Mathf.Abs(GoalX - PlayerX) >= minDiff) break;
+            if (Mathf.Abs(GoalY - PlayerY) >= minDiff) break;
+        }
+
+        //Sinh tường và sàn
+        for (int x = 0; x < Width + 1; x++)
+            for (int y = 0; y < Height; y++)
+                if (HWalls[x, y])
+                    Instantiate(WallTemplate, new Vector3(x, y + 0.5f, 0), Quaternion.Euler(0, 0, 90), Walls);
+        //Sinh tường ngang
+        for (int x = 0; x < Width; x++)
+            for (int y = 0; y < Height + 1; y++)
+                if (VWalls[x, y])
+                    Instantiate(WallTemplate, new Vector3(x + 0.5f, y, 0), Quaternion.identity, Walls);
+        //Sinh tường dọc
+        for (int x = 0; x < Width; x++)
+            for (int y = 0; y < Height; y++)
+                Instantiate(FloorTemplate, new Vector3(x + 0.5f, y + 0.5f), Quaternion.identity, Walls);
+        //Đặt người chơi và đích 
+        Player.transform.position = new Vector3(PlayerX + 0.5f, PlayerY + 0.5f);
+        Goal.transform.position = new Vector3(GoalX + 0.5f, GoalY + 0.5f);
+        //Điều chỉnh camera để phù hợp với kích thước mê cung
+        vcam.m_Lens.OrthographicSize = Mathf.Pow(Mathf.Max(Width / 1.5f, Height), 0.70f) * 0.95f;
+    }
+
+    public (bool[,], bool[,]) GenerateLevel(int w, int h)
+    {
+        //Hàm sinh mê cung sử dụng thuật toán DFS
+        bool[,] hwalls = new bool[w + 1, h];
+        bool[,] vwalls = new bool[w, h + 1];
+
+        bool[,] visited = new bool[w, h];
+        //Đệ qy sinh đường đi
+        bool dfs(int x, int y)
+        {
+            if (visited[x, y])
+                return false;
+            visited[x, y] = true;
+
+            var dirs = new[]
+            {
+                (x - 1, y, hwalls, x, y),
+                (x + 1, y, hwalls, x + 1, y),
+                (x, y - 1, vwalls, x, y),
+                (x, y + 1, vwalls, x, y + 1),
+            };
+
+            foreach (var (nx, ny, wall, wx, wy) in dirs.OrderBy(t => frand()))
+                wall[wx, wy] = !(0 <= nx && nx < w && 0 <= ny && ny < h && (dfs(nx, ny) || frand() < HoleProbability));
+
+            return true;
+        }
+        dfs(0, 0);
+
+        return (hwalls, vwalls);
     }
 }
