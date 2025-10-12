@@ -21,6 +21,13 @@ public class Game : MonoBehaviour
 
     public int PlayerX, PlayerY;
 
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     void Start()
     {
         StartNext();
@@ -28,15 +35,7 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        // Di chuyển người chơi
-        if (Input.GetKeyDown(KeyCode.A) && !HWalls[PlayerX, PlayerY])
-            PlayerX--;
-        if (Input.GetKeyDown(KeyCode.D) && !HWalls[PlayerX + 1, PlayerY])
-            PlayerX++;
-        if (Input.GetKeyDown(KeyCode.W) && !VWalls[PlayerX, PlayerY + 1])
-            PlayerY++;
-        if (Input.GetKeyDown(KeyCode.S) && !VWalls[PlayerX, PlayerY])
-            PlayerY--;
+        HandleSwipe();
 
         // Làm mượt khi di chuyển
         Vector3 target = new Vector3(PlayerX + 0.5f, PlayerY + 0.5f);
@@ -45,6 +44,7 @@ public class Game : MonoBehaviour
         // Kiểm tra người chơi đã đến đích chưa
         if (Vector3.Distance(Player.transform.position, new Vector3(GoalX + 0.5f, GoalY + 0.5f)) < 0.12f)
         {
+            audioManager?.PlayGoalSFX();
             if (Rand(25) < 15)
                 Width++;
             else
@@ -56,7 +56,72 @@ public class Game : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
             StartNext();
     }
+    Vector2 startTouchPos;
+    Vector2 endTouchPos;
+    bool isDragging = false;
+    float minSwipeDistance = 50f;
+    void HandleSwipe()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        //Xử lý chuột cho test trong editor
+        if (Input.GetMouseButtonDown(0))
+        {
+            isDragging = true;
+            startTouchPos = Input.mousePosition;
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            if (isDragging)
+            {
+                endTouchPos = Input.mousePosition;
+                DetectSwipeDirection();
+            }
+            isDragging = false;
+        }
+#endif
 
+        // Xử lý cảm ứng trên điện thoại
+        if (Input.touchCount > 0)
+        {
+            Touch t = Input.GetTouch(0);
+            if (t.phase == TouchPhase.Began)
+            {
+                isDragging = true;
+                startTouchPos = t.position;
+            }
+            else if (t.phase == TouchPhase.Ended)
+            {
+                if (isDragging)
+                {
+                    endTouchPos = t.position;
+                    DetectSwipeDirection();
+                }
+                isDragging = false;
+            }
+        }
+    }
+
+    void DetectSwipeDirection()
+    {
+        Vector2 delta = endTouchPos - startTouchPos;
+        if (delta.magnitude < minSwipeDistance) return; 
+
+        float absX = Mathf.Abs(delta.x);
+        float absY = Mathf.Abs(delta.y);
+
+        bool moved = false;
+        if (absX > absY)
+        {
+            if (delta.x > 0 && !HWalls[PlayerX + 1, PlayerY]) { PlayerX++; moved = true; } // Vuốt phải
+            else if (delta.x < 0 && !HWalls[PlayerX, PlayerY]) { PlayerX--; moved = true; } // Vuốt trái
+        }
+        else
+        {
+            if (delta.y > 0 && !VWalls[PlayerX, PlayerY + 1]) { PlayerY++; moved = true; } // Vuốt lên
+            else if (delta.y < 0 && !VWalls[PlayerX, PlayerY]) { PlayerY--; moved = true; } // Vuốt xuống
+        }
+        if (moved) audioManager?.PlayMoveSFX();
+    }
     //Hàm sinh số ngẫu nhiên
     public int Rand(int max)
     {

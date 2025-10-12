@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scrips\Game.cs" />
     <Compile Include="Assets\Scrips\LevelMenu.cs" />
+    <Compile Include="Assets\Scrips\AudioManager.cs" />
     <Compile Include="Assets\Scrips\MainMenu.cs" />
     <Compile Include="Assets\Scrips\PauseMenu.cs" />
   </ItemGroup>
