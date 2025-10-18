@@ -5,6 +5,10 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField]
     GameObject pauseMenu;
+
+    [SerializeField]
+    GameObject pauseButton; // optional: the button that opens the pause menu
+
     private AudioManager audioManager;
 
     private void Awake()
@@ -29,5 +33,14 @@ public class PauseMenu : MonoBehaviour
         audioManager?.PlayButtonSFX();
         SceneManager.LoadScene("Menu");
         Time.timeScale = 1f;
+    }
+
+    // Allow other scripts to show/hide pause UI (and optionally the pause button)
+    public void SetPauseUIVisible(bool visible)
+    {
+        if (pauseMenu != null)
+            pauseMenu.SetActive(visible);
+        if (pauseButton != null)
+            pauseButton.SetActive(visible);
     }
 }

@@ -22,10 +22,14 @@ public class Game : MonoBehaviour
     public int PlayerX, PlayerY;
 
     AudioManager audioManager;
+    TimeLoading timeLoading;
+
+    bool canMove = true;
 
     private void Awake()
     {
         audioManager = FindObjectOfType<AudioManager>();
+        timeLoading = FindObjectOfType<TimeLoading>();
     }
 
     void Start()
@@ -35,6 +39,8 @@ public class Game : MonoBehaviour
 
     void Update()
     {
+        if (!canMove) return;
+
         HandleSwipe();
 
         // Làm mượt khi di chuyển
@@ -45,6 +51,10 @@ public class Game : MonoBehaviour
         if (Vector3.Distance(Player.transform.position, new Vector3(GoalX + 0.5f, GoalY + 0.5f)) < 0.12f)
         {
             audioManager?.PlayGoalSFX();
+
+            // Reset timer when reaching goal
+            timeLoading?.ResetTimer();
+
             if (Rand(25) < 15)
                 Width++;
             else
@@ -134,6 +144,9 @@ public class Game : MonoBehaviour
 
     public void StartNext()
     {
+        // when starting next level, allow player input
+        canMove = true;
+
         //Tạo mê cung mới và xóa mê cung cũ đi
         foreach (Transform child in Walls)
             Destroy(child.gameObject);
@@ -203,5 +216,11 @@ public class Game : MonoBehaviour
         dfs(0, 0);
 
         return (hwalls, vwalls);
+    }
+
+    // allow other scripts to enable/disable player input
+    public void SetPlayable(bool value)
+    {
+        canMove = value;
     }
 }

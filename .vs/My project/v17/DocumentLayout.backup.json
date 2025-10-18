@@ -3,12 +3,8 @@
   "WorkspaceRootPath": "D:\\Infinity Maze\\My project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|D:\\Infinity Maze\\My project\\assets\\scrips\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|d:\\infinity maze\\my project\\assets\\scrips\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|d:\\infinity maze\\my project\\assets\\scrips\\timeloading.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\timeloading.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|d:\\infinity maze\\my project\\assets\\scrips\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,8 +15,16 @@
       "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|D:\\Infinity Maze\\My project\\assets\\scrips\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|D:\\Infinity Maze\\My project\\assets\\scrips\\levelmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\levelmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|D:\\Infinity Maze\\My project\\assets\\scrips\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32C3BDE6-E125-3128-82C1-25D0441455A3}|Assembly-CSharp.csproj|solutionrelative:assets\\scrips\\audiomanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,20 +42,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "TimeLoading.cs",
+              "DocumentMoniker": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\TimeLoading.cs",
+              "RelativeDocumentMoniker": "Assets\\Scrips\\TimeLoading.cs",
+              "ToolTip": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\TimeLoading.cs",
+              "RelativeToolTip": "Assets\\Scrips\\TimeLoading.cs",
+              "ViewState": "AgIAAGsAAAAAAAAAAAAcwAoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-18T21:24:25.974Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "PauseMenu.cs",
               "DocumentMoniker": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\PauseMenu.cs",
               "RelativeDocumentMoniker": "Assets\\Scrips\\PauseMenu.cs",
               "ToolTip": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\PauseMenu.cs",
               "RelativeToolTip": "Assets\\Scrips\\PauseMenu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAAIwC4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-12T13:19:44.952Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "MainMenu.cs",
               "DocumentMoniker": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\MainMenu.cs",
               "RelativeDocumentMoniker": "Assets\\Scrips\\MainMenu.cs",
@@ -59,8 +76,7 @@
               "RelativeToolTip": "Assets\\Scrips\\MainMenu.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-12T13:19:41.138Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-12T13:19:41.138Z"
             },
             {
               "$type": "Document",
@@ -70,33 +86,32 @@
               "RelativeDocumentMoniker": "Assets\\Scrips\\LevelMenu.cs",
               "ToolTip": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\LevelMenu.cs",
               "RelativeToolTip": "Assets\\Scrips\\LevelMenu.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-12T13:19:36.751Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-12T13:19:36.751Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Game.cs",
               "DocumentMoniker": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\Game.cs",
               "RelativeDocumentMoniker": "Assets\\Scrips\\Game.cs",
               "ToolTip": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\Game.cs",
               "RelativeToolTip": "Assets\\Scrips\\Game.cs",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAcwMQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAwDcAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-12T12:53:36.494Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "AudioManager.cs",
               "DocumentMoniker": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\AudioManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scrips\\AudioManager.cs",
               "ToolTip": "D:\\Infinity Maze\\My project\\Assets\\Scrips\\AudioManager.cs",
               "RelativeToolTip": "Assets\\Scrips\\AudioManager.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-12T13:37:24.141Z",
               "EditorCaption": ""
