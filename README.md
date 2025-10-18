@@ -1,11 +1,11 @@
 # InfinityMaze
 
 ## Giới thiệu
-InfinityMaze là một trò chơi mê cung 3D được phát triển trên Unity, nơi người chơi khám phá các mê cung vô tận với các thử thách độc đáo. Dự án này sử dụng Unity phiên bản 2021.3 LTS và hướng tới các nền tảng PC và macOS.
+InfinityMaze là một trò chơi mê cung 2D được phát triển trên Unity, nơi người chơi khám phá các mê cung vô tận với các thử thách độc đáo. Dự án này sử dụng Unity phiên bản 2022.3 LTS và hướng tới các nền tảng PC và macOS.
 
 ## Tính năng
 - Mê cung được tạo ngẫu nhiên với độ khó tăng dần.
-- Giao diện người dùng trực quan và đồ họa 3D mượt mà.
+- Giao diện người dùng trực quan và đồ họa 2D mượt mà.
 - Hệ thống điểm số và bảng xếp hạng.
 - Hỗ trợ điều khiển bằng bàn phím và chuột.
 
