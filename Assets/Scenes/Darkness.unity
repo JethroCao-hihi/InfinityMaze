@@ -1190,6 +1190,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -530978038, guid: b9eec93ae3dd5ae4a9e4d31694f6fb64, type: 3}
+    - target: {fileID: 5444240304079868697, guid: 0e711fc97396a59429de222b4905c07d, type: 3}
+      propertyPath: initialTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444240304079868697, guid: 0e711fc97396a59429de222b4905c07d, type: 3}
+      propertyPath: remainingTime
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 5456674929706954726, guid: 0e711fc97396a59429de222b4905c07d, type: 3}
       propertyPath: m_Name
       value: Time
